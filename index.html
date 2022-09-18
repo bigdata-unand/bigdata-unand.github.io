@@ -198,6 +198,31 @@
     </footer>
     <!-- akhir footer -->
     <!-- js untuk contact -->
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbw41d17k6A_nDqrWPwoirbzQtJ91zOWFWQnkxMsn6mZjtDX6-SGhMJi6Pt3Q8iwr9vhqA/exec";
+      const form = document.forms["contactUs"];
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoading = document.querySelector(".btn-loading");
+      const alertku = document.querySelector(".my-alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        //ketika tombol submit di klik tampilkan tombol loading, hilangkan tombol kirim
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            console.log("Success!", response);
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+            //tampilkan alert
+            alertku.classList.toggle("d-none");
+            //reset form
+            form.reset();
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+</script>
     <script src="contact.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </body>
